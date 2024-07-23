@@ -1,0 +1,220 @@
+/* General styles */
+body {
+    font-family: 'Montserrat', Arial, sans-serif;
+    background: url('/static/pexels-asadphoto-457881.jpg') center/cover no-repeat, rgba(0, 0, 0, 0.5);
+    background-blend-mode: darken;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    color: #f8f9fa;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    z-index: -1;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(17, 1, 1, 0.39);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    animation: fadeIn 1s ease-in-out;
+}
+
+h1 {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    color: #007bff;
+    font-weight: 700;
+    font-size: 2.5rem;
+    text-align: center;
+    animation: slideIn 1s ease-in-out;
+}
+
+label {
+    font-weight: 500;
+    color: #dee3e9;
+}
+
+.form-control {
+    border-radius: 10px;
+    box-shadow: none;
+    transition: box-shadow 0.2s ease-in-out, transform 0.2s;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    transform: scale(1.05);
+}
+
+.btn-primary {
+    margin-top: 20px;
+    margin-right: 450px;
+    background-color: #007bff;
+    border-color: #007bff;
+    border-radius: 10px;
+    transition: background-color 0.2s ease-in-out, transform 0.2s;
+}
+
+
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    transform: translateY(-3px);
+}
+
+h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #007bff;
+    text-align: center;
+    margin-top: 20px;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+p#result {
+    margin-top: 10px;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #28a745;
+    text-align: center;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+    }
+
+    p#result {
+        font-size: 1rem;
+    }
+}
+
+/* Additional styles for better UX */
+form {
+    margin-top: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+#converter-form {
+    display: flex;
+    flex-direction: column;
+}
+
+select.form-control, input.form-control {
+    padding: 10px;
+    height: auto;
+}
+
+button.btn-primary {
+    align-self: flex-end;
+    padding: 10px 20px;
+}
+
+div#result {
+    margin-top: 20px;
+    text-align: center;
+}
+
+h3, p#result {
+    margin-bottom: 0;
+    display: block;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+
+/* Enhanced styles for select dropdowns */
+.form-control {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.842);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s;
+    position: relative;
+}
+
+/* Dropdown arrow */
+.form-control::after {
+    content: '▼';
+    font-size: 0.8rem;
+    color: #007bff;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* Focus state */
+.form-control:focus {
+    box-shadow: 0 0 10px rgba(0, 188, 212, 0.7);
+    transform: scale(1.05);
+    outline: none;
+}
+
+/* Hover state */
+.form-control:hover {
+    transform: scale(1.02);
+}
+
+/* Additional styles for better UX */
+.form-control option {
+    background: #fff;
+    color: #000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .form-control {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}

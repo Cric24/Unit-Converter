@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Converter</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Advanced Unit Converter</h1>
+        <form id="converter-form" class="mt-4">
+            <div class="form-group">
+                <label for="unit_type">Select Unit Type:</label>
+                <select id="unit_type" class="form-control" required>
+                    <option value="" disabled selected>Select unit type</option>
+                    <option value="length">Length</option>
+                    <option value="weight">Weight</option>
+                    <option value="temperature">Temperature</option>
+                    <!-- Add more unit types here if needed -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="value">Enter Value:</label>
+                <input type="number" id="value" class="form-control" step="any" required>
+            </div>
+
+            <div class="form-group">
+                <label for="from_unit">From Unit:</label>
+                <select id="from_unit" class="form-control" required>
+                    <!-- Length Units -->
+                    <option value="meters" data-unit-type="length">Meters</option>
+                    <option value="kilometers" data-unit-type="length">Kilometers</option>
+                    <option value="miles" data-unit-type="length">Miles</option>
+                    <option value="feet" data-unit-type="length">Feet</option>
+                    <option value="inches" data-unit-type="length">Inches</option>
+                    <!-- Weight Units -->
+                    <option value="grams" data-unit-type="weight">Grams</option>
+                    <option value="kilograms" data-unit-type="weight">Kilograms</option>
+                    <option value="pounds" data-unit-type="weight">Pounds</option>
+                    <option value="ounces" data-unit-type="weight">Ounces</option>
+                    <!-- Temperature Units -->
+                    <option value="celsius" data-unit-type="temperature">Celsius</option>
+                    <option value="fahrenheit" data-unit-type="temperature">Fahrenheit</option>
+                    <option value="kelvin" data-unit-type="temperature">Kelvin</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="to_unit">To Unit:</label>
+                <select id="to_unit" class="form-control" required>
+                    <!-- Length Units -->
+                    <option value="meters" data-unit-type="length">Meters</option>
+                    <option value="kilometers" data-unit-type="length">Kilometers</option>
+                    <option value="miles" data-unit-type="length">Miles</option>
+                    <option value="feet" data-unit-type="length">Feet</option>
+                    <option value="inches" data-unit-type="length">Inches</option>
+                    <!-- Weight Units -->
+                    <option value="grams" data-unit-type="weight">Grams</option>
+                    <option value="kilograms" data-unit-type="weight">Kilograms</option>
+                    <option value="pounds" data-unit-type="weight">Pounds</option>
+                    <option value="ounces" data-unit-type="weight">Ounces</option>
+                    <!-- Temperature Units -->
+                    <option value="celsius" data-unit-type="temperature">Celsius</option>
+                    <option value="fahrenheit" data-unit-type="temperature">Fahrenheit</option>
+                    <option value="kelvin" data-unit-type="temperature">Kelvin</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Convert</button>
+        </form>
+
+        <div class="mt-4">
+            <h3>Result:</h3>
+            <p id="result"></p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('converter-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const unitType = document.getElementById('unit_type').value;
+            const value = document.getElementById('value').value;
+            const fromUnit = document.getElementById('from_unit').value;
+            const toUnit = document.getElementById('to_unit').value;
+
+            fetch(`/convert?unit_type=${unitType}&value=${value}&from_unit=${fromUnit}&to_unit=${toUnit}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('result').textContent = `Converted value: ${data.result}`;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('result').textContent = 'An error occurred.';
+                });
+        });
+
+        document.getElementById('unit_type').addEventListener('change', function() {
+            const selectedUnitType = this.value;
+            const units = document.querySelectorAll('select[id="from_unit"] option, select[id="to_unit"] option');
+            units.forEach(unit => {
+                unit.style.display = unit.getAttribute('data-unit-type') === selectedUnitType ? 'block' : 'none';
+            });
+            document.getElementById('from_unit').value = '';
+            document.getElementById('to_unit').value = '';
+        });
+    </script>
+</body>
+</html>
